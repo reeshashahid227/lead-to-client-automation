@@ -82,20 +82,6 @@ Append row in sheet2           Wait
 
 ---
 
-## Prompt Design Notes
-
-All Groq prompts used for generating email copy follow these rules:
-- Write only the email body (no subject line, no preamble like "here's an email")
-- Start directly with the greeting
-- Keep tone professional but low-pressure
-- Reference the lead's original message dynamically (e.g. `{{ $json.message }}`)
-- **No placeholder brackets** (e.g. `[Your Name]`, `[Lead's Name]`) — the model is instructed to use a generic greeting when the lead's name isn't known, and to sign off with the actual business name
-
-### Fix Applied (Resolved Issue)
-
-Early versions of the prompts didn't specify how to handle missing names or sign-offs, causing Groq to generate literal placeholder text like `[Your Name]` and `[Lead's Name]` in outgoing emails. All prompts across the **Hot, Warm, and Spam-adjacent reply branches** were updated with explicit instructions to avoid placeholder brackets and use the real business name — verified working across all branches.
-
----
 
 
 ## Maintenance Notes
