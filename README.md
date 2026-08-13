@@ -27,7 +27,7 @@ This project automates the first stage of lead handling for AI/chatbot service i
 
 ## Workflow Diagram
 
-![n8n Workflow Diagram](workflow-diagram.png)
+![Lead Automation Workflow](screenshots/workflow.png)
 
 ---
 
