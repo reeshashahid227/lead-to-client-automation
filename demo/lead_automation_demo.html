@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Automation Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            width: min(420px, 90%);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.1);
+        }
+        h1 { text-align: center; margin-bottom: 8px; }
+        p { text-align: center; color: #666; margin-bottom: 25px; }
+        label { display: block; margin: 15px 0 6px; font-weight: bold; }
+        input, textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        textarea { height: 120px; resize: vertical; }
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            border: 0;
+            border-radius: 6px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result { margin-top: 15px; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Lead Automation Demo</h1>
+    <p>Submit a lead to test the automated qualification workflow.</p>
+
+    <form id="leadForm">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Ahmed Khan" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="ahmed@gmail.com" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message"
+            placeholder="I need an automation system for my business." required></textarea>
+
+        <button type="submit">Submit Lead</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+const WEBHOOK_URL = "https://r22.app.n8n.cloud/webhook/18d2b6d3-b939-4bf4-ae44-5de55cfc9bb2";
+
+document.getElementById("leadForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const result = document.getElementById("result");
+
+    const data = {
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        message: document.getElementById("message").value.trim()
+    };
+
+    result.textContent = "Submitting...";
+
+    try {
+        const response = await fetch(WEBHOOK_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        result.textContent = "Lead submitted successfully!";
+        event.target.reset();
+
+    } catch (error) {
+        console.error(error);
+        result.textContent = "Could not connect to the n8n webhook.";
+    }
+});
+</script>
+</body>
+</html>
