@@ -78,7 +78,7 @@ Append row in sheet2           Wait
 - **Groq API** — LLM completions (`llama-3.3-70b-versatile`) for lead classification and email copy generation
 - **Gmail** — sending automated replies/follow-ups
 - **Google Sheets** — logging leads by category (Hot / Warm / Spam)
-- **Calendly** — booking link shared with qualified (Hot/Warm) leads for scheduling consultation calls
+- **Calendly** — booking link shared with qualified (Hot) leads for scheduling consultation calls
 
 ---
 
